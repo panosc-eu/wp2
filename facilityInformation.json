@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "_comment": "Data Policy -- fix later",
+            "path": "a3e9d35d-1835-4117-9ea8-13bf29a48241.67787c72-9a72-4151-bf69-bb94fb40d284", 
+            "uuid": "5eae355b-7b23-432f-a9fe-93a8f4fa67cc", 
+            "value": {
+              "value": "https://europeanspallationsource.se/sites/default/files/files/document/2018-05/ESS%20Rules%20for%20Data%20Protection.pdf",
+              "type": "StringReply"
+            },
+            "type": "SetReplyEvent"
+        },
+        {
+            "_comment": "Data Storage",
+            "path": "4710ee6f-d268-4db4-877b-35a3a96abaef.ac01b906-1567-48d5-9292-86ce145d79e0", 
+            "uuid": "52116198-43e4-4f78-b6b8-f8a2726782bb", 
+            "value": {
+              "value": "All data will be stored at the Data Management and Software Centre located in Copenhagen",
+              "type": "StringReply"
+            },
+            "type": "SetReplyEvent"
+        },
+        {
+            "_comment": "Data Storage Location",
+            "path": "4710ee6f-d268-4db4-877b-35a3a96abaef.710fbc1e-29f1-4a77-a56b-0d4be32d68bf", 
+            "uuid": "02b2309c-8b72-42c7-a83f-a617717fb978", 
+            "value": {
+              "value": "https://scicat.ess.eu/",
+              "type": "StringReply"
+            },
+            "type": "SetReplyEvent"
+        }
+    ]
+}

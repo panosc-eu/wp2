@@ -1,0 +1,8 @@
+{
+    "NMX": {
+        "name" : "Macromolecular Diffractometer",
+        "dataCollectionSoftware": "MxCuBE 3",
+        "analysisTools": "Abula, EDNA",
+        "dataFormats": "HDF5/Nexus"
+    }
+}
