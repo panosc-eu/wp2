@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export function getToken() {
   return axios
-    .post("http://api.dmp.info/tokens", {
+    .post(`${process.env.DMP_HOST}/tokens`, {
       email: "albert.einstein@example.com",
       password: "password",
     })
@@ -17,25 +17,44 @@ export function getToken() {
     });
 }
 
+export function changeQuestionAnswers(questionnaireUuid: string, answers) {
+  return axios
+    .put(
+      `${process.env.DMP_HOST}/questionnaires/${questionnaireUuid}/content`,
+      {
+        events: answers,
+      }
+    )
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
 export function changeQuestionAnswer(
   questionnaireUuid: string,
   path: string,
-  value: string
+  answer: string
 ) {
   return axios
-    .put(`http://api.dmp.info/questionnaires/${questionnaireUuid}/content`, {
-      events: [
-        {
-          path, // This needs to  point all the way to the question
-          uuid: uuidv4(), // Needs to be auto generated
-          value: {
-            value,
-            type: "StringReply",
+    .put(
+      `${process.env.DMP_HOST}/questionnaires/${questionnaireUuid}/content`,
+      {
+        events: [
+          {
+            path,
+            uuid: uuidv4(),
+            value: {
+              value: answer,
+              type: "StringReply",
+            },
+            type: "SetReplyEvent",
           },
-          type: "SetReplyEvent",
-        },
-      ],
-    })
+        ],
+      }
+    )
     .then(function (response) {
       return response;
     })
@@ -50,7 +69,7 @@ export function changeOwnerQuestionnarie(
   uuid: string
 ) {
   return axios
-    .put(`http://api.dmp.info/questionnaires/${questionnaireUuid}`, {
+    .put(`${process.env.DMP_HOST}/questionnaires/${questionnaireUuid}`, {
       name, // Why do I need to reset all these?
       description: null,
       isTemplate: false,
@@ -80,16 +99,15 @@ export function changeOwnerQuestionnarie(
 
 export function createQuestionnarie(proposalId: string) {
   return axios
-    .post("http://api.dmp.info/questionnaires", {
+    .post(`${process.env.DMP_HOST}/questionnaires`, {
       name: `${proposalId}-DMP`,
-      packageId: "myorg:panosc-expands:2.0.2",
+      packageId: "myorg:panosc-expands:2.0.4",
       sharing: "RestrictedQuestionnaire",
       tagUuids: [],
       templateId: null,
       visibility: "PrivateQuestionnaire",
     })
     .then(function (response) {
-      console.log(response);
       return response.data.uuid;
     })
     .catch(function (error) {
@@ -104,7 +122,7 @@ export function createUser(
   affiliation: string
 ) {
   return axios
-    .post("http://api.dmp.info/users", {
+    .post(`${process.env.DMP_HOST}/users`, {
       email,
       lastName,
       firstName,
@@ -121,11 +139,48 @@ export function createUser(
     });
 }
 
+export function activateUser(
+  uuid: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  affiliation: string
+) {
+  return axios
+    .put(`${process.env.DMP_HOST}/users/${uuid}`, {
+      email,
+      lastName,
+      firstName,
+      role: "researcher",
+      affiliation,
+      active: true,
+      uuid,
+    })
+    .then(function (response) {
+      return response.data.uuid as string;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return "";
+    });
+}
+
 export function searchUser(filter: string) {
   return axios
-    .get(`http://api.dmp.info/users?size=10&q=${filter}`)
+    .get(`${process.env.DMP_HOST}/users?size=10&q=${filter}`)
     .then((resp) => {
       return resp.data._embedded.users;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+export function searchQuestionnarie(filter: string) {
+  return axios
+    .get(`${process.env.DMP_HOST}/questionnaires?size=10&q=${filter}`)
+    .then((resp) => {
+      return resp.data._embedded.questionnaires;
     })
     .catch(function (error) {
       console.log(error);
