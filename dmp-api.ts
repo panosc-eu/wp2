@@ -17,7 +17,7 @@ export function getToken() {
     });
 }
 
-export function changeQuestionAnswers(questionnaireUuid: string, answers) {
+export function changeQuestionAnswers(questionnaireUuid: string, answers: any) {
   return axios
     .put(
       `${process.env.DMP_HOST}/questionnaires/${questionnaireUuid}/content`,
@@ -101,9 +101,9 @@ export function createQuestionnarie(proposalId: string) {
   return axios
     .post(`${process.env.DMP_HOST}/questionnaires`, {
       name: `${proposalId}-DMP`,
-      packageId: "myorg:panosc-expands:2.0.4",
+      packageId: `${process.env.PACKAGE_ID}`,
       sharing: "RestrictedQuestionnaire",
-      tagUuids: [],
+      tagUuids: ["302b1584-a7a2-4d9c-9770-eee990b002ec"],
       templateId: null,
       visibility: "PrivateQuestionnaire",
     })

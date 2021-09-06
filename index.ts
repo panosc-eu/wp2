@@ -34,6 +34,9 @@ async function start() {
     console.log(type, message);
     if (type === "PROPOSAL_CREATED") {
       let acceptMessage = message as ProposalAcceptedMessage;
+      if (acceptMessage.proposer == undefined) {
+        return;
+      }
       let users = await searchUser(
         `${acceptMessage.proposer.firstName} ${acceptMessage.proposer.lastName}`
       );
@@ -70,8 +73,11 @@ async function start() {
       );
       await changeQuestionAnswers(questionnaireUuid, facilityInformation.data);
     } else if (type === "PROPOSAL_UPDATED") {
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // This is hacky but for the moment needed as a search right after a create will not find the DMP
+      await new Promise((resolve) => setTimeout(resolve, 5000, [])); // This is hacky but for the moment needed as a search right after a create will not find the DMP
       const acceptMessage = message as ProposalAcceptedMessage;
+      if (acceptMessage.proposer == undefined) {
+        return;
+      }
       const uuid = await searchQuestionnarie(acceptMessage.shortCode);
 
       if (uuid.length === 1) {
@@ -86,9 +92,21 @@ async function start() {
           mapping.abstract,
           acceptMessage.abstract
         );
+
+        await changeQuestionAnswer(
+          questionnaireUuid,
+          mapping.purpose,
+          acceptMessage.abstract
+        );
+
         await changeQuestionAnswer(
           questionnaireUuid,
           mapping.projectCoordinator,
+          `${acceptMessage.proposer.firstName} ${acceptMessage.proposer.lastName}`
+        );
+        await changeQuestionAnswer(
+          questionnaireUuid,
+          mapping.dataPerson,
           `${acceptMessage.proposer.firstName} ${acceptMessage.proposer.lastName}`
         );
       }
@@ -99,9 +117,10 @@ async function start() {
         const questionnaireUuid = uuid[0].uuid;
 
         answers.forEach(async (answer) => {
+          // @ts-ignore: Unreachable code error
           if (answer.dataType === "TEXT_INPUT" && mapping[answer.questionId]) {
             await changeQuestionAnswer(
-              questionnaireUuid,
+              questionnaireUuid, // @ts-ignore: Unreachable code error
               mapping[answer.questionId],
               answer.answer
             );
@@ -129,16 +148,7 @@ start();
 
 // async function test() {
 //   await getToken();
-//   let questionnaireUuid = "1a5d400a-b623-43d3-a771-689acebea722";
-//   await changeQuestionAnswer(
-//     questionnaireUuid,
-//     mapping.projectCoordinator,
-//     "vad!"
-//   );
+//   let questionnaireUuid = "ce715543-c766-434b-9dad-43b00a648904";
+//   await changeQuestionAnswers(questionnaireUuid, instrumentInformation.NMX);
 // }
 // test();
-
-// await changeQuestionAnswers(
-//   questionnaireUuid,
-//   instrumentInformation.NMX
-// );

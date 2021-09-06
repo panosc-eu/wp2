@@ -33,10 +33,10 @@
     {
         "_comment": "Software documentation needed",
         "path": "a3e9d35d-1835-4117-9ea8-13bf29a48241.f5e177c0-7c8a-4dcc-a403-58040ee8e34e", 
-        "uuid": "f05ef86e-5116-4312-8027-5b5db796e4bf", 
+        "uuid": "d2b8c97a-d27a-45ee-9cd3-f9a9bcc2b8c7", 
         "value": {
-          "value": "No",
-          "type": "StringReply"
+          "value": "96bcd7d9-f941-435e-89bd-8f99b21bbeec",
+          "type": "AnswerReply"
         },
         "type": "SetReplyEvent"
     }

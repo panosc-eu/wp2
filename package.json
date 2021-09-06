@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "A service that ingest messages from the user office message broker and issues commands to Data Steward Wizard",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "dev": "ts-node-dev --respawn -T ./index.ts",
+    "dev": "DMP_HOST=https://dmpapi.useroffice-test.esss.lu.se ts-node-dev --respawn -T ./index.ts",
     "build": "rm -rf ./build && tsc",
-    "start": "tsc && node ./index.js"
+    "start": "DMP_HOST=https://dmpapi.useroffice-test.esss.lu.se node ./build/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +17,8 @@
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.3.5",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/uuid": "^8.3.1"
   }
 }
