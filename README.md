@@ -16,7 +16,7 @@ Then visit [localhost:8080](http://localhost:8080) and login as `albert.einstein
 
 Included in this repository is a PaNOSC/ExPANDS knowledge model(myorg_panosc-expands_2.0.6.km) that can be imported by login into the DMP platform and clicking "Knowledge Models" and then Import.
 
-To use the middleware one needs to simulate a user office connection the the rabbitmq by manually creating a message, this can be done by visiting the rabbitmq interface located at http://localhost:15672/ and using the credentials guest for both password and username. Once logged in visit the "Exchanges" tab and you will find a "useroffice.fanout" exchange that is going be used by your local user office to issue events that occur such as PROPOSAL_CREATED, PROPOSAL_UPDATED, by selecting "useroffice.fanout" we can simulate a user office event by publishing a message. A message has two parts we need to be concerned about; 1. Properties that should be set as "type: PROPOSAL_CREATED" and payload which can look like:
+To use the middleware one needs to simulate a user office connection to the rabbitmq by manually creating a message, this can be done by visiting the rabbitmq interface located at http://localhost:15672/ and using the credentials guest for both password and username. Once logged in visit the "Exchanges" tab and you will find a "useroffice.fanout" exchange that is going be used by your local user office to issue events that occur such as PROPOSAL_CREATED, PROPOSAL_UPDATED, by selecting "useroffice.fanout" we can simulate a user office event by publishing a message. A message has two parts we need to fill in, these are properties and payload. The properties should be set as "type=PROPOSAL_CREATED" and payload can look like:
 
 ```
   {"proposalPk": "345",
