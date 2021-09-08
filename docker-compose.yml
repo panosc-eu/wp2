@@ -1,121 +1,65 @@
-version: "3.1"
-
+version: '3'
 services:
-  # used to proxy the core UI FE and BE requests to the right container
-  # Core FE is accessible on localhost:33000/
-  # Core BE is accessible on localhost:33000/graphql
-  proxy:
-    image: traefik:1.7 # The official Traefik docker image
-    command: --api --docker # Enables the web UI and tells Traefik to listen to docker
-    ports:
-      - "33000:80" # The HTTP port
-      - "8080:8080" # The Web UI (enabled by --api)
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
-  db:
-    image: postgres:11-alpine
+  dsw-server:
+    image: datastewardshipwizard/wizard-server:3.2.2
     restart: always
-    environment:
-      POSTGRES_PASSWORD: duopassword
-      POSTGRES_USER: duouser
-      POSTGRES_DB: duo
     ports:
-      - 5432:5432
+      - 3000:3000
+    depends_on:
+      - postgres
+      - minio
     volumes:
-      - ./db_patches/:/docker-entrypoint-initdb.d/
+      - ./dsw.yml:/application/engine-wizard/config/application.yml:ro
 
-  scheduler-db:
-    image: postgres:11-alpine
+  dsw-client:
+    image: datastewardshipwizard/wizard-client:3.2.0
     restart: always
-    environment:
-      POSTGRES_DB: scheduler
-      POSTGRES_USER: schedulerUser
-      POSTGRES_PASSWORD: schedulerPassword
     ports:
-      - 54320:5432 # avoid collision
-
-  factory:
-    image: dmsc/duo-factory:develop
-    init: true
+      - 8080:80
     environment:
-      - NODE_ENV=development
-      - DATABASE_HOSTNAME=db
-      - DATABASE_PORT=5432
-      - DATABASE_USER=duouser
-      - DATABASE_PASSWORD=duopassword
-      - DATABASE_DATABASE=duo
-    ports:
-      - 4500:4500
-    cap_add:
-      - SYS_ADMIN
+      API_URL: http://localhost:3000
 
-  frontend:
-    image: "dmsc/duo-frontend:develop"
-    labels:
-      - "traefik.frontend.rule=PathPrefix:/"
-      - "traefik.port=80"
-
-  backend:
-    image: "dmsc/duo-backend:develop"
-    environment:
-      DATABASE_URL: postgres://duouser:duopassword@db:5432/duo
-      secret: qMyLZALzs229ybdQXNyzYRdju7X784TH
-      tokenLife: 7d
-      baseURL: localhost:33000
-      SPARKPOST_TOKEN: dummytoken
-      NODE_ENV: production
-      UO_FEATURE_DISABLE_EAM: 1
-      USER_OFFICE_FACTORY_ENDPOINT: http://factory:4500/generate
-      DEPENDENCY_CONFIG: ess
-      RABBITMQ_HOSTNAME: rabbitmq
-      RABBITMQ_USERNAME: guest
-      RABBITMQ_PASSWORD: guest
-      CONFIG_PATH: ./
-    labels:
-      - "traefik.frontend.rule=PathPrefix: /api, /downloads, /files, /download, /uploads"
-      - "traefik.port=4000"
-    ports:
-      - 44001:4000
+  docworker:
+    image: datastewardshipwizard/document-worker:3.2.0
+    restart: always
     depends_on:
-        - "db"
+      - postgres
+      - minio
+      - dsw-server
+    volumes:
+      - ./dsw.yml:/app/config.yml:ro
 
-  scheduler-frontend:
-    image: "dmsc/duo-scheduler-frontend:develop"
-    labels:
-      - "traefik.frontend.rule=PathPrefix:/scheduler"
-      - "traefik.port=80"
-
-  scheduler-backend:
-    image: "dmsc/duo-scheduler-backend:develop"
+  postgres:
+    image: postgres:13.2
+    restart: always
+    # (!) Expose only for debugging locally or set-up authentication
+    # ports:
+    #   - 127.0.0.1:15432:5432
     environment:
-      NODE_ENV: development
-      DATABASE_HOSTNAME: scheduler-db
-      DATABASE_PORT: 5432
-      DATABASE_USER: schedulerUser
-      DATABASE_PASSWORD: schedulerPassword
-      DATABASE_DATABASE: scheduler
-      SCHEDULER_CONFIG_AUTH_REDIRECT: http://localhost:3000/shared-auth
-      USER_OFFICE_ENDPOINT: http://host.docker.internal:4000/graphql
-      RABBITMQ_HOSTNAME: rabbitmq
-    depends_on:
-      - scheduler-db
-    ports:
-      - 44000:4000 # avoid collision
+      POSTGRES_DB: engine-wizard
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    # (!) Mount for persistent data
+    # volumes:
+    #  - db-data:/var/lib/postgresql/data
+    # OR
+    #  - ./db-data/data:/var/lib/postgresql/data
 
-  gateway:
-    image: "dmsc/duo-gateway:develop"
+  minio:
+    image: minio/minio:RELEASE.2021-04-22T15-44-28Z
+    command: server /data
+    # (!) Expose only for debugging locally or set-up authentication
+    # ports:
+    #   - 127.0.0.1:19000:9000
+    # (!) Mount and backup for persistent data
     environment:
-      USER_OFFICE_BACKEND: http://backend:4000/graphql
-      USER_OFFICE_SCHEDULER_BACKEND: http://scheduler-backend:4000/graphql
-      NODE_ENV: development
-      ENABLE_SERVICE_POLLING: 1 # see gateway
-      KEEP_RETRYING: 1 # see gateway
-    ports:
-      - 4100:4100
-    labels:
-      - "traefik.frontend.rule=PathPrefix:/gateway, /graphql"
-      - "traefik.port=4100"
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minioPassword
+    # (!) Mount for persistent data
+    # volumes:
+    #  - s3-data:/data
+    # OR
+    #  - ./s3-data/data:/data
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:
@@ -123,3 +67,20 @@ services:
       - "5672:5672"
     volumes:
       - ./rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
+
+  middleware:
+    build: .
+    image: "middleware"
+    environment:
+      DMP_HOST: "http://dsw-server:3000"
+      RABBITMQ_HOST: "rabbitmq"
+      RABBITMQ_USER: "guest"
+      RABBITMQ_PASSWORD: "guest"
+      PACKAGE_ID: "myorg:panosc-expands:2.0.6"
+    depends_on:
+      - rabbitmq
+      - dsw-server
+    command: ["./wait-for-it.sh", "rabbitmq:15672", "--timeout=30", "--", "node", "./build/index.js"]
+# volumes:
+#   db-data:
+#   s3-data:

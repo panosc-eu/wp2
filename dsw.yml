@@ -1,0 +1,24 @@
+general:
+  clientUrl: http://localhost:8080
+  secret: b7zFNUhFYIFLmDSFKFkp0Bnp8Z3uWGnH
+  serviceToken: NlQSNbGvh7EtcpinGnHE9g91
+
+database:
+  connectionString: postgresql://postgres:postgres@postgres:5432/engine-wizard
+
+s3:
+  url: http://minio:9000
+  username: minio
+  password: minioPassword
+  bucket: engine-wizard
+
+mail:
+  enabled: false
+  name:
+  email:
+  host:
+  port:
+  ssl:
+  authEnabled:
+  username:
+  password:
