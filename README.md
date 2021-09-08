@@ -18,7 +18,7 @@ Included in this repository is a PaNOSC/ExPANDS knowledge model(myorg_panosc-exp
 
 To use the middleware one needs to simulate a user office connection the the rabbitmq by manually creating a message, this can be done by visiting the rabbitmq interface located at http://localhost:15672/ and using the credentials guest for both password and username. Once logged in visit the "Exchanges" tab and you will find a "useroffice.fanout" exchange that is going be used by your local user office to issue events that occur such as PROPOSAL_CREATED, PROPOSAL_UPDATED, by selecting "useroffice.fanout" we can simulate a user office event by publishing a message. A message has two parts we need to be concerned about; 1. Properties that should be set as "type: PROPOSAL_CREATED" and payload which can look like:
 
-´´´
+```
   {"proposalPk": "345",
   "shortCode": "284692",
   "title": "",
@@ -30,6 +30,6 @@ To use the middleware one needs to simulate a user office connection the the rab
     "email": "bob.andersson@gmail.com"
   }
 }
-´´´
+```
 
 This will create a DMP and a user in the data steward wizard. The user can login with their email and the password "password". The DMP will be filled out with the information located in the facitilyInformation.json file, to change this information change in the json and run docker-compose build. 
