@@ -36,3 +36,16 @@ To use the middleware one needs to simulate a user office connection to the rabb
 
 
 This will create a DMP and a user in the data steward wizard. The user can login with their email and the password "password". The DMP will be filled out with the information located in the facitilyInformation.json file, to change this information change in the json and run docker-compose build. 
+
+
+## Event types
+
+Currently the middleware listens to three types of events, these are;
+
+1. PROPOSAL_CREATED - Issued when a proposal is created and has only essential information about the proposal such as title, abstract, members and proposer
+2. PROPOSAL_UPDATED - Issued when core proposal information is updated, this has the same format and information as PROPOSAL_CREATED
+3. TOPIC_ANSWERED - Issued when one or more questions in the user office has been answered. 
+
+
+## Architecture overview
+
