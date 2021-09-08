@@ -32,4 +32,7 @@ To use the middleware one needs to simulate a user office connection the the rab
 }
 ```
 
+![image](https://user-images.githubusercontent.com/6403388/132503931-594b5a22-7edb-4daf-b065-13a1080ada5d.png)
+
+
 This will create a DMP and a user in the data steward wizard. The user can login with their email and the password "password". The DMP will be filled out with the information located in the facitilyInformation.json file, to change this information change in the json and run docker-compose build. 
