@@ -10,7 +10,7 @@ export interface ProposalAcceptedMessage {
   title: string;
   abstract: string;
   members: Member[];
-  proposer?: Member;
+  proposer: Member;
 }
 
 export interface ProposalTopicAnswer {
