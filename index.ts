@@ -1,17 +1,11 @@
 import { RabbitMQMessageBroker } from "@esss-swap/duo-message-broker";
 import {
-  searchUser,
   getToken,
-  createQuestionnarie,
-  changeOwnerQuestionnarie,
   changeQuestionAnswers,
   changeQuestionAnswer,
-  createUser,
-  activateUser,
   searchQuestionnarie,
 } from "./dmp-api";
 import mapping from "./useroffice-dmp-mapping.json";
-import facilityInformation from "./facilityInformation.json";
 import instrumentInformation from "./instrumentInformation.json";
 import { addUser, addDMP, updateDMP } from "./helper";
 
