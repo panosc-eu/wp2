@@ -1,3 +1,4 @@
+<img width="1063" alt="Screenshot 2021-09-13 at 13 01 30" src="https://user-images.githubusercontent.com/6403388/133072821-7d35b78a-0a18-445f-b1da-cb9146a170af.png">
 # DSW Deployment Example with PaNOSC User Office middleware
 
 :exclamation: This example is intended for **local setup and testing**. For production use there are many more things to do such as authentication, controlling exposed ports (e.g. do not expose ports of `postgres` and `minio`), data backups, or using proxy. 
@@ -48,4 +49,5 @@ Currently the middleware listens to three types of events, these are;
 
 
 ## Architecture overview
+<img width="1063" alt="Screenshot 2021-09-13 at 13 01 30" src="https://user-images.githubusercontent.com/6403388/133072843-cf45ce5b-6bc0-41bf-aece-dd470352d724.png">
 
