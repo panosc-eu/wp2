@@ -38,6 +38,23 @@ To use the middleware one needs to simulate a user office connection to the rabb
 This will create a DMP and a user in the data steward wizard. The user can login with their email and the password "password". The DMP will be filled out with the information located in the facitilyInformation.json file, to change this information change in the json and run docker-compose build. 
 
 
+Then there is also the answering for individual questions as well as setting instrument specific information, this is done with the type of TOPIC_ANSWERED and takes the following as an example:
+
+```
+[
+  {
+    "proposalId": "284692",
+    "question": "Select an instrument",
+    "questionId": "selection_from_options_instrument",
+    "dataType": "SELECTION_FROM_OPTIONS",
+    "answer": "[ 'NMX' ]"
+  }
+]
+```
+
+
+
+
 ## Event types
 
 Currently the middleware listens to three types of events, these are;
