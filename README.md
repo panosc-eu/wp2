@@ -48,5 +48,8 @@ Currently the middleware listens to three types of events, these are;
 
 
 ## Architecture overview
+
+The green boxes below are for the individual facilities to change so that the information propogated to the DMP is inline with the facilities information. Currently a significant amount of the information sent to the DMP is fetched from the three json files, this could however be changed to incorporate other software repositories. The index file is listening to a rabbitmq that is sending out events concerning PROPOSAL_ACCEPTED, PROPOSAL_UPDATED and TOPIC_ANSWERED. 
+
 <img width="1063" alt="Screenshot 2021-09-13 at 13 01 30" src="https://user-images.githubusercontent.com/6403388/133072843-cf45ce5b-6bc0-41bf-aece-dd470352d724.png">
 
