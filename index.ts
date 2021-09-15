@@ -27,14 +27,12 @@ async function start() {
 
   rabbitMq.listenOnBroadcast(async (type, message: unknown) => {
     console.log(type, message);
-    let userUuid = "";
-    let questionnaireUuid = "";
 
     if (type === "PROPOSAL_CREATED") {
       let acceptMessage = message as ProposalAcceptedMessage;
 
-      userUuid = await addUser(acceptMessage);
-      questionnaireUuid = await addDMP(acceptMessage, userUuid);
+      let userUuid = await addUser(acceptMessage);
+      await addDMP(acceptMessage, userUuid);
     } else if (type === "PROPOSAL_UPDATED") {
       await new Promise((resolve) => setTimeout(resolve, 5000, [])); // This is hacky but for the moment needed as a search right after a create will not find the DMP
       let acceptMessage = message as ProposalAcceptedMessage;
@@ -57,16 +55,27 @@ async function start() {
           }
           // Here is the place we can fetch and add calculations for instruments
           if (answer.questionId === "selection_from_options_instrument") {
+            console.log(answer.answer);
+            // @ts-ignore: Unreachable code error
+            console.log(instrumentInformation[answer.answer[0]].static);
             await changeQuestionAnswers(
-              questionnaireUuid,
-              instrumentInformation.NMX
+              questionnaireUuid, // @ts-ignore: Unreachable code error
+              instrumentInformation[answer.answer[0]].static
             );
 
             //Here we could do a simple lookup based on instrument and time allocated for a proposal
+            const days = parseInt(
+              answers.find((ans) => ans.questionId === "days_at_instrument")!
+                .answer
+            );
             await changeQuestionAnswer(
               questionnaireUuid,
               mapping.data_size,
-              "20 Gigabytes"
+              `${
+                // @ts-ignore: Unreachable code error
+                instrumentInformation[answer.answer[0]].dailyGigabyteIndex *
+                days
+              } Gigabytes`
             );
           }
         });

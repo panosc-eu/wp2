@@ -73,10 +73,13 @@ services:
     image: "middleware"
     environment:
       DMP_HOST: "http://dsw-server:3000"
+      DMP_TAG: "302b1584-a7a2-4d9c-9770-eee990b002ec"
       RABBITMQ_HOST: "rabbitmq"
       RABBITMQ_USER: "guest"
       RABBITMQ_PASSWORD: "guest"
       PACKAGE_ID: "myorg:panosc-expands:2.0.6"
+      INGESTOR_EMAIL: "albert.einstein@example.com"
+      INGESTOR_PASSWORD: "password"
     depends_on:
       - rabbitmq
       - dsw-server

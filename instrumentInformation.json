@@ -1,5 +1,6 @@
 {
-    "NMX": [
+    "NMX":{ 
+    "static" : [
     {
         "_comment": "File Formats",
         "path": "a3e9d35d-1835-4117-9ea8-13bf29a48241.f1a1e194-72db-46d4-b979-fb47527279ee", 
@@ -40,5 +41,8 @@
         },
         "type": "SetReplyEvent"
     }
-]
+],
+"dailyGigabyteIndex": 5
+}
+
 }

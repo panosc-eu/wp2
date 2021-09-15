@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 export function getToken() {
   return axios
     .post(`${process.env.DMP_HOST}/tokens`, {
-      email: "albert.einstein@example.com",
-      password: "password",
+      email: process.env.INGESTOR_EMAIL,
+      password: process.env.INGESTOR_PASSWORD,
     })
     .then(function (response) {
       axios.defaults.headers.common[
@@ -103,7 +103,7 @@ export function createQuestionnarie(proposalId: string) {
       name: `${proposalId}-DMP`,
       packageId: `${process.env.PACKAGE_ID}`,
       sharing: "RestrictedQuestionnaire",
-      tagUuids: ["302b1584-a7a2-4d9c-9770-eee990b002ec"],
+      tagUuids: [process.env.DMP_TAG], // Here I am using the Horizon 2020 template tag
       templateId: null,
       visibility: "PrivateQuestionnaire",
     })
@@ -127,7 +127,7 @@ export function createUser(
       lastName,
       firstName,
       role: "researcher",
-      password: "password",
+      password: "password", // this should be connected to your identity access solution instead of hardcoded
       affiliation,
     })
     .then(function (response) {
