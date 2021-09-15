@@ -38,6 +38,30 @@ To use the middleware one needs to simulate a user office connection to the rabb
 This will create a DMP and a user in the data steward wizard. The user can login with their email and the password "password". The DMP will be filled out with the information located in the facitilyInformation.json file, to change this information change in the json and run docker-compose build. 
 
 
+Then there is also the answering for individual questions as well as setting instrument specific information, this is done with the type of TOPIC_ANSWERED and takes the following as an example:
+
+```
+[
+  {
+    "proposalId": "284692",
+    "question": "Select an instrument",
+    "questionId": "selection_from_options_instrument",
+    "dataType": "SELECTION_FROM_OPTIONS",
+    "answer": ["NMX"]
+  },
+  {
+    "proposalId": "284692",
+    "question": "Number of days",
+    "questionId": "days_at_instrument",
+    "dataType": "NUMBER_INPUT",
+    "answer": 8
+  }
+]
+```
+
+
+
+
 ## Event types
 
 Currently the middleware listens to three types of events, these are;
@@ -48,4 +72,8 @@ Currently the middleware listens to three types of events, these are;
 
 
 ## Architecture overview
+
+The green boxes below are for the individual facilities to change so that the information propogated to the DMP is inline with the facilities information. Currently a significant amount of the information sent to the DMP is fetched from the three json files, this could however be changed to incorporate other software repositories. The index file is listening to a rabbitmq that is sending out events concerning PROPOSAL_ACCEPTED, PROPOSAL_UPDATED and TOPIC_ANSWERED. 
+
+<img width="1063" alt="Screenshot 2021-09-13 at 13 01 30" src="https://user-images.githubusercontent.com/6403388/133072843-cf45ce5b-6bc0-41bf-aece-dd470352d724.png">
 
