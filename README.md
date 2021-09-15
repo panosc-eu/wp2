@@ -47,7 +47,14 @@ Then there is also the answering for individual questions as well as setting ins
     "question": "Select an instrument",
     "questionId": "selection_from_options_instrument",
     "dataType": "SELECTION_FROM_OPTIONS",
-    "answer": "[ 'NMX' ]"
+    "answer": ["NMX"]
+  },
+  {
+    "proposalId": "284692",
+    "question": "Number of days",
+    "questionId": "days_at_instrument",
+    "dataType": "NUMBER_INPUT",
+    "answer": 8
   }
 ]
 ```
