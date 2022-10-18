@@ -5,8 +5,8 @@ import {
   changeQuestionAnswer,
   searchQuestionnarie,
 } from "./dmp-api";
-import mapping from "./useroffice-dmp-mapping.json";
-import instrumentInformation from "./instrumentInformation.json";
+import mapping from "./resources/useroffice-dmp-mapping.json";
+import instrumentInformation from "./resources/instrumentInformation.json";
 import { addUser, addDMP, updateDMP } from "./helper";
 
 import {
