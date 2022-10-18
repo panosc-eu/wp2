@@ -8,34 +8,34 @@ import {
   createUser,
   activateUser,
   searchQuestionnarie,
-} from "./dmp-api";
-import mapping from "../resources/useroffice-dmp-mapping.json";
-import facilityInformation from "../resources/facilityInformation.json";
-import instrumentInformation from "../resources/instrumentInformation.json";
+} from './dmp-api';
+import mapping from '../resources/useroffice-dmp-mapping.json';
+import facilityInformation from '../resources/facilityInformation.json';
+import instrumentInformation from '../resources/instrumentInformation.json';
 
 import {
   ProposalAcceptedMessage,
   ProposalTopicAnswer,
-} from "./messageInterfaces";
+} from './messageInterfaces';
 
 export async function addUser(acceptMessage: ProposalAcceptedMessage) {
   let users = await searchUser(
     `${acceptMessage.proposer.firstName} ${acceptMessage.proposer.lastName}`
   );
-  let userUuid = "";
+  let userUuid = '';
   if (users.length === 0) {
     userUuid = await createUser(
       acceptMessage.proposer.firstName,
       acceptMessage.proposer.lastName,
       acceptMessage.proposer.email,
-      " "
+      ' '
     );
     return await activateUser(
       userUuid,
       acceptMessage.proposer.firstName,
       acceptMessage.proposer.lastName,
       acceptMessage.proposer.email,
-      " "
+      ' '
     );
   } else {
     return users[0].uuid;
@@ -47,7 +47,7 @@ export async function addDMP(
   acceptMessage: ProposalAcceptedMessage,
   userUuid: string
 ) {
-  let questionnaireUuid = await createQuestionnarie("tmp");
+  let questionnaireUuid = await createQuestionnarie('tmp');
   await changeOwnerQuestionnarie(
     `${acceptMessage.shortCode}-DMP`,
     questionnaireUuid,

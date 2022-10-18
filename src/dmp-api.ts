@@ -1,5 +1,5 @@
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export function getToken() {
   return axios
@@ -9,7 +9,7 @@ export function getToken() {
     })
     .then(function (response) {
       axios.defaults.headers.common[
-        "Authorization"
+        'Authorization'
       ] = `Bearer ${response.data.token}`;
     })
     .catch(function (error) {
@@ -48,9 +48,9 @@ export function changeQuestionAnswer(
             uuid: uuidv4(),
             value: {
               value: answer,
-              type: "StringReply",
+              type: 'StringReply',
             },
-            type: "SetReplyEvent",
+            type: 'SetReplyEvent',
           },
         ],
       }
@@ -73,8 +73,8 @@ export function changeOwnerQuestionnarie(
       name, // Why do I need to reset all these?
       description: null,
       isTemplate: false,
-      visibility: "PrivateQuestionnaire",
-      sharing: "RestrictedQuestionnaire",
+      visibility: 'PrivateQuestionnaire',
+      sharing: 'RestrictedQuestionnaire',
       templateId: null,
       formatUuid: null,
       permissions: [
@@ -83,9 +83,9 @@ export function changeOwnerQuestionnarie(
           questionnaireUuid,
           member: {
             uuid: uuid,
-            type: "UserMember",
+            type: 'UserMember',
           },
-          perms: ["VIEW", "EDIT", "ADMIN"],
+          perms: ['VIEW', 'EDIT', 'ADMIN'],
         },
       ],
     })
@@ -102,10 +102,10 @@ export function createQuestionnarie(proposalId: string) {
     .post(`${process.env.DMP_HOST}/questionnaires`, {
       name: `${proposalId}-DMP`,
       packageId: `${process.env.PACKAGE_ID}`,
-      sharing: "RestrictedQuestionnaire",
+      sharing: 'RestrictedQuestionnaire',
       tagUuids: [process.env.DMP_TAG], // Here I am using the Horizon 2020 template tag
       templateId: null,
-      visibility: "PrivateQuestionnaire",
+      visibility: 'PrivateQuestionnaire',
     })
     .then(function (response) {
       return response.data.uuid;
@@ -126,8 +126,8 @@ export function createUser(
       email,
       lastName,
       firstName,
-      role: "researcher",
-      password: "password", // this should be connected to your identity access solution instead of hardcoded
+      role: 'researcher',
+      password: 'password', // this should be connected to your identity access solution instead of hardcoded
       affiliation,
     })
     .then(function (response) {
@@ -135,7 +135,7 @@ export function createUser(
     })
     .catch(function (error) {
       console.log(error);
-      return "";
+      return '';
     });
 }
 
@@ -151,7 +151,7 @@ export function activateUser(
       email,
       lastName,
       firstName,
-      role: "researcher",
+      role: 'researcher',
       affiliation,
       active: true,
       uuid,
@@ -161,7 +161,7 @@ export function activateUser(
     })
     .catch(function (error) {
       console.log(error);
-      return "";
+      return '';
     });
 }
 

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "DMP_HOST=https://dmpapi.useroffice-test.esss.lu.se ts-node-dev --respawn -T ./index.ts",
     "build": "rm -rf ./build && tsc",
-    "start": "DMP_HOST=https://dmpapi.useroffice-test.esss.lu.se node ./build/index.js"
+    "start": "DMP_HOST=https://dmpapi.useroffice-test.esss.lu.se node ./build/index.js",
+    "lint:prettier": "prettier --check ."
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,8 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@types/uuid": "^8.3.1"
+    "@types/node": "^16.11.12",
+    "@types/uuid": "^8.3.1",
+    "prettier": "2.4.1"
   }
 }

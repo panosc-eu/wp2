@@ -1,3 +1,3 @@
-import { start } from "./src/messageBroker";
+import { start } from './src/messageBroker';
 
 start();
