@@ -1,7 +1,7 @@
 import {
   searchUser,
-  createQuestionnarie,
-  changeOwnerQuestionnarie,
+  createQuestionnaire,
+  changeOwnerQuestionnaire,
   changeQuestionAnswers,
   changeQuestionAnswer,
   createUser,
@@ -42,8 +42,8 @@ export async function addDMP(
   acceptMessage: ProposalAcceptedMessage,
   userUuid: string
 ) {
-  const questionnaireUuid = await createQuestionnarie('tmp');
-  await changeOwnerQuestionnarie(
+  const questionnaireUuid = await createQuestionnaire('tmp');
+  await changeOwnerQuestionnaire(
     `${acceptMessage.shortCode}-DMP`,
     questionnaireUuid,
     userUuid

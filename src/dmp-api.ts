@@ -63,7 +63,7 @@ export function changeQuestionAnswer(
     });
 }
 
-export function changeOwnerQuestionnarie(
+export function changeOwnerQuestionnaire(
   name: string,
   questionnaireUuid: string,
   uuid: string
@@ -97,7 +97,7 @@ export function changeOwnerQuestionnarie(
     });
 }
 
-export function createQuestionnarie(proposalId: string) {
+export function createQuestionnaire(proposalId: string) {
   return axios
     .post(`${process.env.DMP_HOST}/questionnaires`, {
       name: `${proposalId}-DMP`,
