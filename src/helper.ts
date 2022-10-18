@@ -9,9 +9,9 @@ import {
   activateUser,
   searchQuestionnarie,
 } from "./dmp-api";
-import mapping from "./resources/useroffice-dmp-mapping.json";
-import facilityInformation from "./resources/facilityInformation.json";
-import instrumentInformation from "./resources/instrumentInformation.json";
+import mapping from "../resources/useroffice-dmp-mapping.json";
+import facilityInformation from "../resources/facilityInformation.json";
+import instrumentInformation from "../resources/instrumentInformation.json";
 
 import {
   ProposalAcceptedMessage,
