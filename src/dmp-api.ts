@@ -173,7 +173,7 @@ export function searchUser(filter: string) {
     });
 }
 
-export function searchQuestionnarie(filter: string) {
+export function searchQuestionnaire(filter: string) {
   return axios
     .get(`${process.env.DMP_HOST}/questionnaires?size=10&q=${filter}`)
     .then((resp) => {

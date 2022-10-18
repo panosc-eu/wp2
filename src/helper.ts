@@ -6,7 +6,7 @@ import {
   changeQuestionAnswer,
   createUser,
   activateUser,
-  searchQuestionnarie,
+  searchQuestionnaire,
 } from './dmp-api';
 import mapping from '../resources/useroffice-dmp-mapping.json';
 import facilityInformation from '../resources/facilityInformation.json';
@@ -37,7 +37,7 @@ export async function addUser(acceptMessage: ProposalAcceptedMessage) {
   }
 }
 
-// this will create a new questionnarie with the facility information set
+// this will create a new questionnaire with the facility information set
 export async function addDMP(
   acceptMessage: ProposalAcceptedMessage,
   userUuid: string
@@ -60,7 +60,7 @@ export async function addDMP(
 }
 
 export async function updateDMP(acceptMessage: ProposalAcceptedMessage) {
-  const uuid = await searchQuestionnarie(acceptMessage.shortCode);
+  const uuid = await searchQuestionnaire(acceptMessage.shortCode);
 
   if (uuid.length === 1) {
     const questionnaireUuid = uuid[0].uuid;

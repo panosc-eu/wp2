@@ -3,7 +3,7 @@ import {
   getToken,
   changeQuestionAnswers,
   changeQuestionAnswer,
-  searchQuestionnarie,
+  searchQuestionnaire,
 } from './dmp-api';
 import mapping from '../resources/useroffice-dmp-mapping.json';
 import instrumentInformation from '../resources/instrumentInformation.json';
@@ -40,7 +40,7 @@ export async function start() {
       await updateDMP(acceptMessage);
     } else if (type === 'TOPIC_ANSWERED') {
       const answers = message as ProposalTopicAnswer[];
-      const uuid = await searchQuestionnarie(`${answers[0].proposalId}-DMP`);
+      const uuid = await searchQuestionnaire(`${answers[0].proposalId}-DMP`);
       if (uuid.length === 1) {
         const questionnaireUuid = uuid[0].uuid;
 
