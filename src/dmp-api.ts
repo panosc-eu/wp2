@@ -57,32 +57,46 @@ export function changeQuestionAnswer(
   return changeQuestionAnswers(questionnaireUuid, answers);
 }
 
+function getPermissionMember(
+  questionnaireUuid: string,
+  uuid: string,
+  permissions: string[]
+) {
+  return {
+    uuid: uuidv4(),
+    questionnaireUuid,
+    member: {
+      uuid: uuid,
+      type: 'UserMember',
+    },
+    perms: permissions,
+  };
+}
+
 export function changeOwnerQuestionnaire(
   name: string,
   questionnaireUuid: string,
-  uuid: string
+  uuid: string,
+  description: string
 ) {
+  const membersPermissions = [];
+  membersPermissions.push(
+    getPermissionMember(questionnaireUuid, uuid, ['VIEW', 'EDIT', 'ADMIN'])
+  );
+  const templateId = process.env.DMP_DOCUMENT_TEMPLATE
+    ? process.env.DMP_DOCUMENT_TEMPLATE
+    : null;
+
   return axios
     .put(`${process.env.DMP_HOST}/questionnaires/${questionnaireUuid}`, {
       name, // Why do I need to reset all these?
-      description: null,
+      description,
       isTemplate: false,
       visibility: 'PrivateQuestionnaire',
       sharing: 'RestrictedQuestionnaire',
-      templateId: null,
+      templateId: templateId,
       formatUuid: null,
-      permissions: [
-        {
-          uuid: uuidv4(),
-          questionnaireUuid,
-          member: {
-            uuid: uuid,
-            type: 'UserMember',
-          },
-          perms: ['VIEW', 'EDIT', 'ADMIN'],
-        },
-      ],
-
+      permissions: membersPermissions,
       projectTags: [],
     })
     .then(function (response) {

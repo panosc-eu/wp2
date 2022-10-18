@@ -46,7 +46,8 @@ export async function addDMP(
   await changeOwnerQuestionnaire(
     `${acceptMessage.shortCode}-DMP`,
     questionnaireUuid,
-    userUuid
+    userUuid,
+    `${acceptMessage.title}`
   );
 
   // Set initial information about PI and already known facility information
