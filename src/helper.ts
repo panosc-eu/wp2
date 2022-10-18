@@ -1,6 +1,5 @@
 import {
   searchUser,
-  getToken,
   createQuestionnarie,
   changeOwnerQuestionnarie,
   changeQuestionAnswers,
@@ -11,15 +10,11 @@ import {
 } from './dmp-api';
 import mapping from '../resources/useroffice-dmp-mapping.json';
 import facilityInformation from '../resources/facilityInformation.json';
-import instrumentInformation from '../resources/instrumentInformation.json';
 
-import {
-  ProposalAcceptedMessage,
-  ProposalTopicAnswer,
-} from './messageInterfaces';
+import { ProposalAcceptedMessage } from './messageInterfaces';
 
 export async function addUser(acceptMessage: ProposalAcceptedMessage) {
-  let users = await searchUser(
+  const users = await searchUser(
     `${acceptMessage.proposer.firstName} ${acceptMessage.proposer.lastName}`
   );
   let userUuid = '';
@@ -47,7 +42,7 @@ export async function addDMP(
   acceptMessage: ProposalAcceptedMessage,
   userUuid: string
 ) {
-  let questionnaireUuid = await createQuestionnarie('tmp');
+  const questionnaireUuid = await createQuestionnarie('tmp');
   await changeOwnerQuestionnarie(
     `${acceptMessage.shortCode}-DMP`,
     questionnaireUuid,

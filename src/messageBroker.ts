@@ -29,13 +29,13 @@ export async function start() {
     console.log(type, message);
 
     if (type === 'PROPOSAL_CREATED') {
-      let acceptMessage = message as ProposalAcceptedMessage;
+      const acceptMessage = message as ProposalAcceptedMessage;
 
-      let userUuid = await addUser(acceptMessage);
+      const userUuid = await addUser(acceptMessage);
       await addDMP(acceptMessage, userUuid);
     } else if (type === 'PROPOSAL_UPDATED') {
       await new Promise((resolve) => setTimeout(resolve, 5000, [])); // This is hacky but for the moment needed as a search right after a create will not find the DMP
-      let acceptMessage = message as ProposalAcceptedMessage;
+      const acceptMessage = message as ProposalAcceptedMessage;
 
       await updateDMP(acceptMessage);
     } else if (type === 'TOPIC_ANSWERED') {
@@ -44,23 +44,27 @@ export async function start() {
       if (uuid.length === 1) {
         const questionnaireUuid = uuid[0].uuid;
 
+        const userOfficeMapping: { [key: string]: string } = mapping;
+        const instrumentInfo: { [key: string]: any } = instrumentInformation;
+
         answers.forEach(async (answer) => {
-          // @ts-ignore: Unreachable code error
-          if (answer.dataType === 'TEXT_INPUT' && mapping[answer.questionId]) {
+          if (
+            answer.dataType === 'TEXT_INPUT' &&
+            userOfficeMapping[answer.questionId]
+          ) {
             await changeQuestionAnswer(
-              questionnaireUuid, // @ts-ignore: Unreachable code error
-              mapping[answer.questionId],
+              questionnaireUuid,
+              userOfficeMapping[answer.questionId],
               answer.answer
             );
           }
           // Here is the place we can fetch and add calculations for instruments
           if (answer.questionId === 'selection_from_options_instrument') {
             console.log(answer.answer);
-            // @ts-ignore: Unreachable code error
-            console.log(instrumentInformation[answer.answer[0]].static);
+            console.log(instrumentInfo[answer.answer[0]].static);
             await changeQuestionAnswers(
-              questionnaireUuid, // @ts-ignore: Unreachable code error
-              instrumentInformation[answer.answer[0]].static
+              questionnaireUuid,
+              instrumentInfo[answer.answer[0]].static
             );
 
             //Here we could do a simple lookup based on instrument and time allocated for a proposal
@@ -72,9 +76,7 @@ export async function start() {
               questionnaireUuid,
               mapping.data_size,
               `${
-                // @ts-ignore: Unreachable code error
-                instrumentInformation[answer.answer[0]].dailyGigabyteIndex *
-                days
+                instrumentInfo[answer.answer[0]].dailyGigabyteIndex * days
               } Gigabytes`
             );
           }
@@ -86,6 +88,6 @@ export async function start() {
 
 export async function test() {
   await getToken();
-  let questionnaireUuid = 'ce715543-c766-434b-9dad-43b00a648904';
+  const questionnaireUuid = 'ce715543-c766-434b-9dad-43b00a648904';
   await changeQuestionAnswers(questionnaireUuid, instrumentInformation.NMX);
 }
