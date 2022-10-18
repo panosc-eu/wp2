@@ -18,8 +18,13 @@ $ docker-compose build
 $ docker-compose up -d
 ```
 
+The server containers needs aroud 5 minutes to be up.
+
 Then visit [localhost:8080](http://localhost:8080) and login as
 `albert.einstein@example.com` with password `password`.
+
+If you want to upgrade the version, please refer to the migration
+[upgrade guidelines](https://guide.ds-wizard.org/miscellaneous/self-hosted-dsw/upgrade-guidelines).
 
 Included in this repository is a PaNOSC/ExPANDS knowledge
 model(myorg_panosc-expands_2.0.6.km) that can be imported by login into the DMP
@@ -79,6 +84,17 @@ and takes the following as an example:
   }
 ]
 ```
+
+## Important notes
+
+- Do not expose PostgreSQL and Minio to the internet
+- When you want to use DSW publicly, set up proxy (e.g. Nginx) with a
+  certificate for your domain and change default accounts
+- Set up volume mounted to PostgreSQL and Minio containers for persistent data
+- You have to create S3 bucket, either using Web UI (for Minio, you can expose
+  and use `http://localhost:9000`) or via client:
+  https://docs.min.io/docs/minio-client-complete-guide.html#mb, e.g. use
+  `create-bucket.sh` script.
 
 ## Event types
 

@@ -38,29 +38,23 @@ export function changeQuestionAnswer(
   path: string,
   answer: string
 ) {
-  return axios
-    .put(
-      `${process.env.DMP_HOST}/questionnaires/${questionnaireUuid}/content`,
-      {
-        events: [
-          {
-            path,
-            uuid: uuidv4(),
-            value: {
-              value: answer,
-              type: 'StringReply',
-            },
-            type: 'SetReplyEvent',
-          },
-        ],
-      }
-    )
-    .then(function (response) {
-      return response;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  const answers = [
+    {
+      phasesAnsweredIndication: {
+        answeredQuestions: 3,
+        unansweredQuestions: 1,
+        indicationType: 'PhasesAnsweredIndication',
+      },
+      path,
+      uuid: uuidv4(),
+      value: {
+        value: answer,
+        type: 'StringReply',
+      },
+      type: 'SetReplyEvent',
+    },
+  ];
+  return changeQuestionAnswers(questionnaireUuid, answers);
 }
 
 export function changeOwnerQuestionnaire(
@@ -88,6 +82,8 @@ export function changeOwnerQuestionnaire(
           perms: ['VIEW', 'EDIT', 'ADMIN'],
         },
       ],
+
+      projectTags: [],
     })
     .then(function (response) {
       return response;
@@ -103,9 +99,10 @@ export function createQuestionnaire(proposalId: string) {
       name: `${proposalId}-DMP`,
       packageId: `${process.env.PACKAGE_ID}`,
       sharing: 'RestrictedQuestionnaire',
-      tagUuids: [process.env.DMP_TAG], // Here I am using the Horizon 2020 template tag
+      questionTagUuids: [process.env.DMP_TAG], // Here I am using the Horizon 2020 template tag
       templateId: null,
       visibility: 'PrivateQuestionnaire',
+      formatUuid: null,
     })
     .then(function (response) {
       return response.data.uuid;

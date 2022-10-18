@@ -8,7 +8,12 @@
         "value": "https://europeanspallationsource.se/sites/default/files/files/document/2018-05/ESS%20Rules%20for%20Data%20Protection.pdf",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Data Storage",
@@ -18,7 +23,12 @@
         "value": "All data will be stored at the Data Management and Software Centre located in Copenhagen",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Data Storage Location",
@@ -28,7 +38,12 @@
         "value": "https://scicat.ess.eu/",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Data Access",
@@ -38,7 +53,12 @@
         "value": "Principal Investigator and Co-proposers",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Dataset interoperable",
@@ -48,7 +68,12 @@
         "value": "This dataset achieves interoperability by using the standard Nexus formats",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Will this dataset be published or shared?",
@@ -58,7 +83,12 @@
         "value": "86941f1c-e85a-41ca-acbd-30f12769c13c",
         "type": "AnswerReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Is the dataset being created or re-used?",
@@ -68,7 +98,12 @@
         "value": "3c2cfd8b-c852-440c-ad13-37e6b188f036",
         "type": "AnswerReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Which versioning strategy is applied for this dataset?",
@@ -78,7 +113,12 @@
         "value": "See ESS data policy for more information regarding versioning",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "If yes, under which terms of use or license will the dataset be published or shared?",
@@ -88,7 +128,12 @@
         "value": ["2312b57f-60cf-4c40-a7de-560efa359803"],
         "type": "MultiChoiceReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "When will the data be published (if they are)?",
@@ -98,7 +143,12 @@
         "value": "The embargo period last for 3 years after the end of the experiment",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "How will the identity of the person accessing the data be ascertained?",
@@ -108,7 +158,12 @@
         "value": "Users are identified through their OrcID",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Is there a internal project guideline for naming the data? If so, please briefly outline the naming conventions and, if necessary, link to the documentation.",
@@ -118,7 +173,12 @@
         "value": "feba308c-989c-4f1e-acb4-47529c3ae49f",
         "type": "AnswerReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Which standards, ontologies, classifications etc. are used to describe the data and context information?",
@@ -128,7 +188,12 @@
         "value": "At ESS all data is stored in the Nexus format",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Which metadata are collected automatically?",
@@ -138,7 +203,12 @@
         "value": "Time of flight and NiCOS input are automatically collected and stored with the data",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Which metadata are collected semi-automatically?",
@@ -148,7 +218,12 @@
         "value": "Information about the sample needs to be filled in the user office system, this is than selected at data collection time by the scientist in NiCOS ",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Which metadata are collected manually?",
@@ -158,7 +233,12 @@
         "value": "Offline processed data can be uploaded to SciCat",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "What are the personnel costs associated with the the creation of metadata and context information in the project?",
@@ -168,7 +248,12 @@
         "value": "Not applicable, ESS will stand for the initial cost of creating the associated metadata for the experiment",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Which system of persistent identifiers shall be used?",
@@ -178,7 +263,12 @@
         "value": "0116d085-25ec-4443-9793-04aa02eb1a1c",
         "type": "AnswerReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Who is responsible for the maintenance of the PIDs and the object maintenance (i.e. who is responsible notifying the PID-Service about object relocation and the new address)?",
@@ -188,7 +278,12 @@
         "value": "The data management software center division of ESS",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Is a data access committee needed to handle access requests to the published data of the project?",
@@ -198,7 +293,12 @@
         "value": "bbec1720-edff-46fa-9b2a-a410d3215322",
         "type": "AnswerReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "In case it is unavoidable that you use uncommon or generate project-specific ontologies or vocabularies, will you provide mappings to more commonly used ontologies?",
@@ -208,7 +308,12 @@
         "value": "b1413f0e-7213-4b49-a4b0-bf70876f437d",
         "type": "AnswerReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "How long is it intended that the data remains re-usable?",
@@ -218,7 +323,12 @@
         "value": "Data will be kept in a maintained state at least 10 years after end of experiment",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Where will the data (including metadata, documentation and, if applicable, relevant code) be stored or archived after the end of the project?",
@@ -228,7 +338,12 @@
         "value": "b97f3dc5-2a9f-4b9d-a50b-a814c0b4761d",
         "type": "AnswerReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "Have you explored appropriate arrangements with the identified repository?",
@@ -238,7 +353,12 @@
         "value": "c1f51a5f-0736-45d7-96fb-a3306883e9df",
         "type": "AnswerReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     },
     {
       "_comment": "How will the data management costs of the project be covered?",
@@ -248,7 +368,12 @@
         "value": "ESS will cover the cost for storage for a minimum of ten years",
         "type": "StringReply"
       },
-      "type": "SetReplyEvent"
+      "type": "SetReplyEvent",
+      "phasesAnsweredIndication": {
+        "answeredQuestions": 3,
+        "unansweredQuestions": 1,
+        "indicationType": "PhasesAnsweredIndication"
+      }
     }
   ]
 }
