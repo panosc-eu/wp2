@@ -2,7 +2,7 @@ version: '3'
 services:
   dsw-server:
     image: datastewardshipwizard/wizard-server:3.16.2
-    #restart: always
+    restart: always
     ports:
       - 3000:3000
     depends_on:
@@ -13,7 +13,7 @@ services:
 
   dsw-client:
     image: datastewardshipwizard/wizard-client:3.16.0
-    #restart: always
+    restart: always
     ports:
       - 8080:80
     environment:
@@ -21,7 +21,7 @@ services:
 
   docworker:
     image: datastewardshipwizard/document-worker:3.16.0
-    #restart: always
+    restart: always
     depends_on:
       - postgres
       - minio
@@ -29,18 +29,18 @@ services:
     volumes:
       - ./dsw.yml:/app/config.yml:ro
 
-  mailer:
-    image: datastewardshipwizard/mailer:3.16.0
-    #restart: always
-    depends_on:
-      - postgres
-      - dsw-server
-    volumes:
-      - ./dsw.yml:/app/config.yml:ro
+  #mailer:
+  #image: datastewardshipwizard/mailer:3.16.0
+  #restart: always
+  #depends_on:
+  #- postgres
+  #- dsw-server
+  # volumes:
+  #- ./dsw.yml:/app/config.yml:ro
 
   postgres:
     image: postgres:13.7
-    #restart: always
+    restart: always
     # (!) Expose only for debugging locally or set-up authentication
     ports:
       - 127.0.0.1:15432:5432
@@ -89,7 +89,7 @@ services:
       RABBITMQ_HOST: 'rabbitmq'
       RABBITMQ_USER: 'guest'
       RABBITMQ_PASSWORD: 'guest'
-      PACKAGE_ID: 'myorg:panosc-expands:2.0.6'
+      PACKAGE_ID: 'myorg:panosc-expands:2.0.7'
       INGESTOR_EMAIL: 'albert.einstein@example.com'
       INGESTOR_PASSWORD: 'password'
     depends_on:
