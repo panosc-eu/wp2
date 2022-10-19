@@ -7,10 +7,10 @@ import {
   createUser,
   activateUser,
   searchQuestionnaire,
+  buildAnswer,
 } from './dmp-api';
 import mapping from '../resources/useroffice-dmp-mapping.json';
 import facilityInformation from '../resources/facilityInformation.json';
-
 import { ProposalAcceptedMessage } from './messageInterfaces';
 
 export async function addUser(acceptMessage: ProposalAcceptedMessage) {
@@ -56,7 +56,10 @@ export async function addDMP(
     mapping.projectCoordinator,
     `${acceptMessage.proposer.firstName} ${acceptMessage.proposer.lastName}`
   );
-  await changeQuestionAnswers(questionnaireUuid, facilityInformation.data);
+  const facilityInformationAnswers = facilityInformation.data.map((d) =>
+    buildAnswer(d.path, d.value)
+  );
+  await changeQuestionAnswers(questionnaireUuid, facilityInformationAnswers);
   return questionnaireUuid;
 }
 

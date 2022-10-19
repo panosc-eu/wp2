@@ -33,26 +33,30 @@ export function changeQuestionAnswers(questionnaireUuid: string, answers: any) {
     });
 }
 
+export function buildAnswer(path: string, value: any) {
+  return {
+    phasesAnsweredIndication: {
+      answeredQuestions: 3,
+      unansweredQuestions: 1,
+      indicationType: 'PhasesAnsweredIndication',
+    },
+    path,
+    uuid: uuidv4(),
+    value: value,
+    type: 'SetReplyEvent',
+  };
+}
+
 export function changeQuestionAnswer(
   questionnaireUuid: string,
   path: string,
   answer: string
 ) {
   const answers = [
-    {
-      phasesAnsweredIndication: {
-        answeredQuestions: 3,
-        unansweredQuestions: 1,
-        indicationType: 'PhasesAnsweredIndication',
-      },
-      path,
-      uuid: uuidv4(),
-      value: {
-        value: answer,
-        type: 'StringReply',
-      },
-      type: 'SetReplyEvent',
-    },
+    buildAnswer(path, {
+      value: answer,
+      type: 'StringReply',
+    }),
   ];
   return changeQuestionAnswers(questionnaireUuid, answers);
 }
