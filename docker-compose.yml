@@ -1,7 +1,7 @@
 version: '3'
 services:
   dsw-server:
-    image: datastewardshipwizard/wizard-server:3.2.2
+    image: datastewardshipwizard/wizard-server:3.16.2
     restart: always
     ports:
       - 3000:3000
@@ -12,7 +12,7 @@ services:
       - ./dsw.yml:/application/engine-wizard/config/application.yml:ro
 
   dsw-client:
-    image: datastewardshipwizard/wizard-client:3.2.0
+    image: datastewardshipwizard/wizard-client:3.16.0
     restart: always
     ports:
       - 8080:80
@@ -20,7 +20,7 @@ services:
       API_URL: http://localhost:3000
 
   docworker:
-    image: datastewardshipwizard/document-worker:3.2.0
+    image: datastewardshipwizard/document-worker:3.16.0
     restart: always
     depends_on:
       - postgres
@@ -29,12 +29,21 @@ services:
     volumes:
       - ./dsw.yml:/app/config.yml:ro
 
+  #mailer:
+  #image: datastewardshipwizard/mailer:3.16.0
+  #restart: always
+  #depends_on:
+  #- postgres
+  #- dsw-server
+  # volumes:
+  #- ./dsw.yml:/app/config.yml:ro
+
   postgres:
-    image: postgres:13.2
+    image: postgres:13.7
     restart: always
     # (!) Expose only for debugging locally or set-up authentication
-    # ports:
-    #   - 127.0.0.1:15432:5432
+    ports:
+      - 127.0.0.1:15432:5432
     environment:
       POSTGRES_DB: engine-wizard
       POSTGRES_USER: postgres
@@ -46,11 +55,13 @@ services:
     #  - ./db-data/data:/var/lib/postgresql/data
 
   minio:
-    image: minio/minio:RELEASE.2021-04-22T15-44-28Z
-    command: server /data
+    image: minio/minio:RELEASE.2022-08-02T23-59-16Z
+    restart: always
+    command: server /data --console-address ":9001"
     # (!) Expose only for debugging locally or set-up authentication
-    # ports:
-    #   - 127.0.0.1:19000:9000
+    ports:
+      - 127.0.0.1:9000:9000
+      - 127.0.0.1:9001:9001
     # (!) Mount and backup for persistent data
     environment:
       MINIO_ROOT_USER: minio
@@ -60,30 +71,39 @@ services:
     #  - s3-data:/data
     # OR
     #  - ./s3-data/data:/data
+
   rabbitmq:
-    image: "rabbitmq:3-management"
+    image: 'rabbitmq:3-management'
     ports:
-      - "15672:15672"
-      - "5672:5672"
+      - '15672:15672'
+      - '5672:5672'
     volumes:
       - ./rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
 
   middleware:
     build: .
-    image: "middleware"
+    image: 'middleware'
     environment:
-      DMP_HOST: "http://dsw-server:3000"
-      DMP_TAG: "302b1584-a7a2-4d9c-9770-eee990b002ec"
-      RABBITMQ_HOST: "rabbitmq"
-      RABBITMQ_USER: "guest"
-      RABBITMQ_PASSWORD: "guest"
-      PACKAGE_ID: "myorg:panosc-expands:2.0.6"
-      INGESTOR_EMAIL: "albert.einstein@example.com"
-      INGESTOR_PASSWORD: "password"
+      DMP_HOST: 'http://dsw-server:3000'
+      DMP_TAG: '302b1584-a7a2-4d9c-9770-eee990b002ec'
+      RABBITMQ_HOST: 'rabbitmq'
+      RABBITMQ_USER: 'guest'
+      RABBITMQ_PASSWORD: 'guest'
+      PACKAGE_ID: 'myorg:panosc-expands:2.0.7'
+      INGESTOR_EMAIL: 'albert.einstein@example.com'
+      INGESTOR_PASSWORD: 'password'
     depends_on:
       - rabbitmq
       - dsw-server
-    command: ["./wait-for-it.sh", "rabbitmq:15672", "--timeout=30", "--", "node", "./build/index.js"]
+    command:
+      [
+        './wait-for-it.sh',
+        'rabbitmq:15672',
+        '--timeout=30',
+        '--',
+        'node',
+        './build/index.js',
+      ]
 # volumes:
 #   db-data:
 #   s3-data:

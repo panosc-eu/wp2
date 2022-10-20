@@ -1,0 +1,39 @@
+{
+  "NMX": {
+    "static": [
+      {
+        "_comment": "File Formats",
+        "path": "a3e9d35d-1835-4117-9ea8-13bf29a48241.f1a1e194-72db-46d4-b979-fb47527279ee",
+        "value": {
+          "value": "HDF5/Nexus",
+          "type": "StringReply"
+        }
+      },
+      {
+        "_comment": "Analysis Tools",
+        "path": "a3e9d35d-1835-4117-9ea8-13bf29a48241.bf94fca8-2b3b-418d-b0df-4220b7ce0974",
+        "value": {
+          "value": "Abula, EDNA",
+          "type": "StringReply"
+        }
+      },
+      {
+        "_comment": "Data Collection Tools",
+        "path": "a3e9d35d-1835-4117-9ea8-13bf29a48241.67787c72-9a72-4151-bf69-bb94fb40d284",
+        "value": {
+          "value": "MxCuBE 3",
+          "type": "StringReply"
+        }
+      },
+      {
+        "_comment": "Software documentation needed",
+        "path": "a3e9d35d-1835-4117-9ea8-13bf29a48241.f5e177c0-7c8a-4dcc-a403-58040ee8e34e",
+        "value": {
+          "value": "96bcd7d9-f941-435e-89bd-8f99b21bbeec",
+          "type": "AnswerReply"
+        }
+      }
+    ],
+    "dailyGigabyteIndex": 5
+  }
+}
