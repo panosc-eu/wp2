@@ -4,6 +4,7 @@ import {
   changeQuestionAnswers,
   changeQuestionAnswer,
   searchQuestionnaire,
+  buildAnswer,
 } from './dmp-api';
 import mapping from '../resources/useroffice-dmp-mapping.json';
 import instrumentInformation from '../resources/instrumentInformation.json';
@@ -62,10 +63,10 @@ export async function start() {
           if (answer.questionId === 'selection_from_options_instrument') {
             console.log(answer.answer);
             console.log(instrumentInfo[answer.answer[0]].static);
-            await changeQuestionAnswers(
-              questionnaireUuid,
-              instrumentInfo[answer.answer[0]].static
-            );
+            const instrumentsAnswers = instrumentInfo[
+              answer.answer[0]
+            ].static.map((a: any) => buildAnswer(a.path, a.value));
+            await changeQuestionAnswers(questionnaireUuid, instrumentsAnswers);
 
             //Here we could do a simple lookup based on instrument and time allocated for a proposal
             const days = parseInt(
@@ -89,5 +90,8 @@ export async function start() {
 export async function test() {
   await getToken();
   const questionnaireUuid = 'ce715543-c766-434b-9dad-43b00a648904';
-  await changeQuestionAnswers(questionnaireUuid, instrumentInformation.NMX);
+  const instrumentsAnswers = instrumentInformation.NMX.static.map((a: any) =>
+    buildAnswer(a.path, a.value)
+  );
+  await changeQuestionAnswers(questionnaireUuid, instrumentsAnswers);
 }
